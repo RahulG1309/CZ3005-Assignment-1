@@ -8,10 +8,11 @@ def load_json(filename: str) -> dict:
     return data
 # Helper function for reading a json file
 
+
 class Node:
-    def __init__(self, num : str, pred : object, dist : float, cost : float):
+    def __init__(self, num: str, pred: object, dist: float, cost: float):
         self.num = num
-        self.pred = pred # Predecessor of the current node, needed to get the path
+        self.pred = pred  # Predecessor of the current node, needed to get the path
         self.dist = dist
         self.cost = cost
         # dist and cost are the cummulative dsitances/costs required to reach the node from start
@@ -19,6 +20,7 @@ class Node:
     def __lt__(self, next):
         return self.dist < next.dist
     # Overriding the comparison operator to order nodes in priority queue by their distance
+
 
 class Graph:
     def __init__(self):
@@ -100,7 +102,7 @@ class Graph:
                 if budget > 0 and new_cost > budget:
                     continue
                 # If exploring this node exceeds our budget, we skip it {it won't get enqueued}
-                
+
                 heuristic_dist = 0 if ucs else self.getEuclidean(adj, end)
                 # The ucs flag allows us to switch between UCS and A* algorithms easily
 
@@ -108,11 +110,11 @@ class Graph:
                 # f(n) = g(n) + h(n) {standard unweighted A*}
                 # Setting h(n) = 0 makes it UCS/Djikstra
 
-                if new_distance < distances.get(adj, float('inf'))  or new_cost < costs.get(adj, float('inf')):
+                if new_distance < distances.get(adj, float('inf')) or new_cost < costs.get(adj, float('inf')):
                     distances[adj] = new_distance
                     costs[adj] = new_cost
                     # Updating the state dicts
-                    
+
                     adjNode = Node(adj, curr, new_distance, new_cost)
                     heapq.heappush(pq, (heuristic, adjNode))
                     # Updating the priority queue
@@ -135,7 +137,8 @@ def main():
     # For Task 2: budget = 287932; ucs = True
     # For Task 3: budget = 287932; ucs = False
 
-    path, num_explored, total_distance, total_cost = graph.astar(start, end, budget, ucs)
+    path, num_explored, total_distance, total_cost = graph.astar(
+        start, end, budget, ucs)
 
     print("Shortest Path: S->", end="")
     for node in path[1:-1]:
