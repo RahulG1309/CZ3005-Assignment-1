@@ -68,7 +68,7 @@ class Graph:
         return ((x1 - x2)**2 + (y1 - y2)**2)**0.5
     # Helper function that returns the euclidean distance between the two nodes
 
-    def astar(self, start: str, end: str, budget: int = 0):
+    def astar(self, start: str, end: str, budget: int = 0, ucs: bool = False):
         distances = {start: 0.}
         # Dictionary that tracks the path's length from start node to current node {g(n)}
 
@@ -100,8 +100,11 @@ class Graph:
                 if budget > 0 and new_cost > budget:
                     continue
                 # If exploring this node exceeds our budget, we skip it {it won't get enqueued}
+                
+                heuristic_dist = 0 if ucs else self.getEuclidean(adj, end)
+                # The ucs flag allows us to switch between UCS and A* algorithms easily
 
-                heuristic = new_distance
+                heuristic = new_distance + heuristic_dist
                 # f(n) = g(n) + h(n) {standard unweighted A*}
                 # Setting h(n) = 0 makes it UCS/Djikstra
 
@@ -125,10 +128,14 @@ def main():
     graph = Graph()
     start = '1'
     end = '50'
-    budget = 287932
-    # For Task 1, set budget = 0
 
-    path, num_explored, total_distance, total_cost = graph.astar(start, end, budget)
+    budget = 287932
+    ucs = False
+    # For Task 1: budget = 0
+    # For Task 2: budget = 287932; ucs = True
+    # For Task 3: budget = 287932; ucs = False
+
+    path, num_explored, total_distance, total_cost = graph.astar(start, end, budget, ucs)
 
     print("Shortest Path: S->", end="")
     for node in path[1:-1]:
@@ -142,7 +149,7 @@ def main():
 
     print(f"Path Length: {len(path)}")
     print(f"Nodes Explored: {num_explored}")
-    # Extra Stats
+    # Extra Statistics
 
 
 if __name__ == "__main__":
