@@ -89,7 +89,7 @@ class Graph:
             if curr.num == end:
                 endNode = curr
                 path = self.getPath(start, endNode)
-                return (path, len(distances), curr.dist, curr.cost)
+                return (path, list(distances.keys()), curr.dist, curr.cost)
             # If the target is found. Note how we terminate once the target is popped from the priority queue
 
             for adj in self.getAdj(curr.num):
@@ -122,7 +122,7 @@ class Graph:
 
                 # Check if relaxed distance is shorter {unvisited nodes have infinite distance}
 
-        return (self.getPath(start, curr), len(distances), distances[curr.num], costs[curr.num])
+        return (self.getPath(start, curr), list(distances.keys()), distances[curr.num], costs[curr.num])
         # If target is not found, we return the best path we have so far
 
 
@@ -131,13 +131,13 @@ def main():
     start = '1'
     end = '50'
 
-    budget = 287932
+    budget = 0
     ucs = False
     # For Task 1: budget = 0
     # For Task 2: budget = 287932; ucs = True
     # For Task 3: budget = 287932; ucs = False
 
-    path, num_explored, total_distance, total_cost = graph.astar(
+    path, explored, total_distance, total_cost = graph.astar(
         start, end, budget, ucs)
 
     print("Shortest Path: S->", end="")
@@ -151,7 +151,7 @@ def main():
     # Printing Key Stats
 
     print(f"Path Length: {len(path)}")
-    print(f"Nodes Explored: {num_explored}")
+    print(f"Nodes Explored: {len(explored)}")
     # Extra Statistics
 
 
