@@ -131,7 +131,7 @@ def main():
     start = '1'
     end = '50'
 
-    budget = 0
+    budget = 287932
     ucs = False
     # For Task 1: budget = 0
     # For Task 2: budget = 287932; ucs = True
