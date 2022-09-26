@@ -125,6 +125,12 @@ class Graph:
         return (self.getPath(start, curr), list(distances.keys()), distances[curr.num], costs[curr.num])
         # If target is not found, we return the best path we have so far
 
+def print_path(path):
+    print("Shortest Path: S->", end="")
+    for node in path[1:-1]:
+        print(f"{node}->", end="")
+    print("T\n")
+    # Printing the path
 
 def main():
     graph = Graph()
@@ -140,11 +146,12 @@ def main():
     path, explored, total_distance, total_cost = graph.astar(
         start, end, budget, ucs)
 
-    print("Shortest Path: S->", end="")
-    for node in path[1:-1]:
-        print(f"{node}->", end="")
-    print("T\n")
-    # Printing the path
+    print_path(path)
+    # print("Shortest Path: S->", end="")
+    # for node in path[1:-1]:
+    #     print(f"{node}->", end="")
+    # print("T\n")
+    # # Printing the path
 
     print(f"Shortest Distance: {total_distance}")
     print(f"Total Energy Cost: {total_cost}")
