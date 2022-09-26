@@ -130,36 +130,45 @@ def print_path(path):
     for node in path[1:-1]:
         print(f"{node}->", end="")
     print("T\n")
-    # Printing the path
+    # Helper function that will print the path
+
+def print_keystats(total_cost, total_distance):
+    print(f"Shortest Distance: {total_distance}")
+    print(f"Total Energy Cost: {total_cost}")
+    # Helper function that will print the key statistics
+
+def print_extrastats(path, explored):
+    print(f"Path Length: {len(path)}")
+    print(f"Nodes Explored: {len(explored)}")
+    # Helper function that prints extra stats used for debugging
+
+def print_finalresults(start, end, budget, ucs, graph, printextra):
+    path, explored, total_distance, total_cost = graph.astar(
+        start, end, budget, ucs)
+    
+    print_path(path)
+    print_keystats(total_cost, total_distance)
+    if printextra:
+        print_extrastats(path, explored)
+    # function that will print the final results neatly
 
 def main():
     graph = Graph()
     start = '1'
     end = '50'
+    printextra = True
+    
+    # For Task 1: budget = 0; ucs = True
+    print("\n\n---Task 1---\n")
+    print_finalresults(start, end, 0, True, graph, printextra)
 
-    budget = 287932
-    ucs = False
-    # For Task 1: budget = 0
     # For Task 2: budget = 287932; ucs = True
+    print("\n\n---Task 2---\n")
+    print_finalresults(start, end, 287932, True, graph, printextra)
+
     # For Task 3: budget = 287932; ucs = False
-
-    path, explored, total_distance, total_cost = graph.astar(
-        start, end, budget, ucs)
-
-    print_path(path)
-    # print("Shortest Path: S->", end="")
-    # for node in path[1:-1]:
-    #     print(f"{node}->", end="")
-    # print("T\n")
-    # # Printing the path
-
-    print(f"Shortest Distance: {total_distance}")
-    print(f"Total Energy Cost: {total_cost}")
-    # Printing Key Stats
-
-    print(f"Path Length: {len(path)}")
-    print(f"Nodes Explored: {len(explored)}")
-    # Extra Statistics
+    print("\n\n---Task 3---\n")
+    print_finalresults(start, end, 287932, False, graph, printextra)
 
 
 if __name__ == "__main__":
