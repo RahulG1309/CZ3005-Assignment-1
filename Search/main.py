@@ -125,50 +125,71 @@ class Graph:
         return (self.getPath(start, curr), list(distances.keys()), distances[curr.num], costs[curr.num])
         # If target is not found, we return the best path we have so far
 
-def print_path(path):
+
+def printPath(path):
     print("Shortest Path: S->", end="")
     for node in path[1:-1]:
         print(f"{node}->", end="")
     print("T\n")
     # Helper function that will print the path
 
-def print_keystats(total_cost, total_distance):
+
+# def checkPath(path):
+#     G = Graph()
+#     distance, cost = 0, 0
+#     for i in range(len(path)-1):
+#         x, y = path[i], path[i+1]
+#         distance += G.getDist(x, y)
+#         cost += G.getCost(x, y)
+
+#     print(f"Verified Distance: {distance}")
+#     print(f"Verified Cost: {cost}")
+#     return
+#     # Helper function to verify our output
+
+
+def printKeyStats(total_cost, total_distance):
     print(f"Shortest Distance: {total_distance}")
     print(f"Total Energy Cost: {total_cost}")
     # Helper function that will print the key statistics
 
-def print_extrastats(path, explored):
+
+def printExtraStats(path, explored):
     print(f"Path Length: {len(path)}")
     print(f"Nodes Explored: {len(explored)}")
-    # Helper function that prints extra stats used for debugging
+    # Helper function that prints extra statistics used for debugging
 
-def print_finalresults(start, end, budget, ucs, graph, printextra):
+
+def printFinalResults(start, end, budget, ucs, graph, printextra):
     path, explored, total_distance, total_cost = graph.astar(
         start, end, budget, ucs)
-    
-    print_path(path)
-    print_keystats(total_cost, total_distance)
+
+    printPath(path)
+    # checkPath(path)
+    printKeyStats(total_cost, total_distance)
     if printextra:
-        print_extrastats(path, explored)
-    # function that will print the final results neatly
+        printExtraStats(path, explored)
+    # Function that will print the final results neatly
+
 
 def main():
     graph = Graph()
     start = '1'
     end = '50'
-    printextra = True
-    
+    printExtra = True
+    # Flag for printing extra stats (Path Length and Number of Nodes Explored)
+
     # For Task 1: budget = 0; ucs = True
     print("\n\n---Task 1---\n")
-    print_finalresults(start, end, 0, True, graph, printextra)
+    printFinalResults(start, end, 0, True, graph, printExtra)
 
     # For Task 2: budget = 287932; ucs = True
     print("\n\n---Task 2---\n")
-    print_finalresults(start, end, 287932, True, graph, printextra)
+    printFinalResults(start, end, 287932, True, graph, printExtra)
 
-    # For Task 3: budget = 287932; ucs = False
+    # For Task 3: budget = 287932; ucs = False (will run A*)
     print("\n\n---Task 3---\n")
-    print_finalresults(start, end, 287932, False, graph, printextra)
+    printFinalResults(start, end, 287932, False, graph, printExtra)
 
 
 if __name__ == "__main__":
