@@ -1,2 +1,5 @@
 # CZ3005
-Code for the assignments in my Artificial Intelligence course
+
+### Assignment 1 Search
+
+To run `python main.py`  in main directory.
