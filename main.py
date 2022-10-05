@@ -110,7 +110,8 @@ class Graph:
                 # f(n) = g(n) + h(n) {standard unweighted A*}
                 # Setting h(n) = 0 makes it UCS/Djikstra
 
-                if new_distance < distances.get(adj, float('inf')) or new_cost < costs.get(adj, float('inf')):
+                if new_distance < distances.get(adj, float('inf')) \
+                        or new_cost < costs.get(adj, float('inf')):
                     distances[adj] = new_distance
                     costs[adj] = new_cost
                     # Updating the state dicts
